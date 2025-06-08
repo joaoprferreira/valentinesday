@@ -1,3 +1,4 @@
+import { Metadata } from 'next'
 import fs from 'fs/promises'
 import Image from 'next/image'
 import path from 'path'
@@ -7,6 +8,16 @@ interface Pedido {
   nome: string
   mensagem: string
   imagem: string
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { id: string }
+}): Promise<Metadata> {
+  return {
+    title: `Homenagem ${params.id}`,
+  }
 }
 
 export default async function PedidoPage({
