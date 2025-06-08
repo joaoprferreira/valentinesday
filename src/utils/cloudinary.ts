@@ -9,20 +9,19 @@ cloudinary.config({
 interface CloudinaryUploadResult {
   secure_url: string
   public_id: string
-  [key: string]: any
 }
 
-export async function uploadToCloudinary(
-  filePath: string
-): Promise<CloudinaryUploadResult> {
-  try {
-    const result = await cloudinary.uploader.upload(filePath, {
-      folder: 'homenagens',
-      resource_type: 'auto',
-    })
-    return result
-  } catch (error) {
-    console.error('Erro no upload para Cloudinary:', error)
-    throw new Error('Falha no upload da imagem')
-  }
+export const uploadToCloudinary = (
+  buffer: Buffer
+): Promise<CloudinaryUploadResult> => {
+  return new Promise((resolve, reject) => {
+    const stream = cloudinary.uploader.upload_stream(
+      { folder: 'homenagens' },
+      (error, result) => {
+        if (error) return reject(error)
+        resolve(result as CloudinaryUploadResult)
+      }
+    )
+    stream.end(buffer)
+  })
 }
