@@ -2,10 +2,18 @@ import { gerarQRCode } from '@/utils/gerarQRCode'
 import fs from 'fs'
 import path from 'path'
 
+interface Pedido {
+  id: string
+  nome: string
+  mensagem: string
+  imagem: string
+}
+
 export default async function QRPage({ params }: { params: { id: string } }) {
   const dbPath = path.join(process.cwd(), 'src/data/pedidos.json')
   const pedidos = JSON.parse(fs.readFileSync(dbPath, 'utf-8'))
-  const pedido = pedidos.find((p: any) => p.id === params.id)
+
+  const pedido = pedidos.find((p: Pedido) => p.id === params.id)
 
   if (!pedido) return <p>QR Code não encontrado</p>
 

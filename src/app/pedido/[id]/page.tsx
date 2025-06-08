@@ -1,5 +1,13 @@
 import fs from 'fs/promises'
+import Image from 'next/image'
 import path from 'path'
+
+interface Pedido {
+  id: string
+  nome: string
+  mensagem: string
+  imagem: string
+}
 
 export default async function PedidoPage({
   params,
@@ -14,7 +22,8 @@ export default async function PedidoPage({
   } catch {
     pedidos = []
   }
-  const pedido = pedidos.find((p: any) => p.id === params.id)
+
+  const pedido = pedidos.find((p: Pedido) => p.id === params.id)
 
   if (!pedido) {
     return (
@@ -30,7 +39,7 @@ export default async function PedidoPage({
         <h1 className="text-2xl font-bold text-pink-600 mb-4">
           💖 Homenagem para {pedido.nome} 💖
         </h1>
-        <img
+        <Image
           src={pedido.imagem}
           alt={pedido.nome}
           className="w-full max-w-xs mx-auto rounded-lg shadow mb-4"
