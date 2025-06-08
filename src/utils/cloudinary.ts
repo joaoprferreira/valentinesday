@@ -1,20 +1,28 @@
-import cloudinary from 'cloudinary'
+import { v2 as cloudinary } from 'cloudinary'
 
-cloudinary.v2.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME!,
-  api_key: process.env.CLOUDINARY_API_KEY!,
-  api_secret: process.env.CLOUDINARY_API_SECRET!,
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME as string,
+  api_key: process.env.CLOUDINARY_API_KEY as string,
+  api_secret: process.env.CLOUDINARY_API_SECRET as string,
 })
 
-export const uploadToCloudinary = async (buffer: Buffer) => {
-  return new Promise<any>((resolve, reject) => {
-    const stream = cloudinary.v2.uploader.upload_stream(
-      { folder: 'homenagens' },
-      (error, result) => {
-        if (error) return reject(error)
-        resolve(result)
-      }
-    )
-    stream.end(buffer)
-  })
+interface CloudinaryUploadResult {
+  secure_url: string
+  public_id: string
+  [key: string]: any
+}
+
+export async function uploadToCloudinary(
+  filePath: string
+): Promise<CloudinaryUploadResult> {
+  try {
+    const result = await cloudinary.uploader.upload(filePath, {
+      folder: 'homenagens',
+      resource_type: 'auto',
+    })
+    return result
+  } catch (error) {
+    console.error('Erro no upload para Cloudinary:', error)
+    throw new Error('Falha no upload da imagem')
+  }
 }
