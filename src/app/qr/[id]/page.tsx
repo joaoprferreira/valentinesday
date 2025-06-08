@@ -1,5 +1,6 @@
 import { gerarQRCode } from '@/utils/gerarQRCode'
 import fs from 'fs'
+import Image from 'next/image'
 import path from 'path'
 
 interface Pedido {
@@ -24,7 +25,7 @@ export default async function QRPage({ params }: { params: { id: string } }) {
     <main className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-4">
       <div className="bg-white p-8 rounded-xl shadow-lg text-center max-w-md w-full">
         <h1 className="text-xl font-semibold mb-4">Escaneie este QR Code</h1>
-        <img src={qrCode} alt="QR Code" className="w-64 h-64 mx-auto mb-4" />
+        <Image src={qrCode} alt="QR Code" className="w-64 h-64 mx-auto mb-4" />
         <p className="text-gray-600">
           Ele levará você para uma surpresa especial ❤️
         </p>

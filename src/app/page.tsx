@@ -1,4 +1,5 @@
 'use client'
+import Image from 'next/image'
 import { useState } from 'react'
 
 export default function Home() {
@@ -72,7 +73,7 @@ export default function Home() {
 
           {imagemPreview && (
             <div className="flex justify-center">
-              <img
+              <Image
                 src={imagemPreview}
                 alt="Preview da imagem"
                 className="w-32 h-32 object-cover rounded mx-auto border-2 border-pink-200"
