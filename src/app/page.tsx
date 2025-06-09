@@ -75,6 +75,8 @@ export default function Home() {
             <div className="flex justify-center">
               <Image
                 src={imagemPreview}
+                width={128}
+                height={128}
                 alt="Preview da imagem"
                 className="w-32 h-32 object-cover rounded mx-auto border-2 border-pink-200"
               />

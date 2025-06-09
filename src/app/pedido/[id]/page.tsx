@@ -63,6 +63,8 @@ export default async function PedidoPage({ params }: Props) {
         <Image
           src={pedido.imagem}
           alt={pedido.nome}
+          width={300}
+          height={300}
           className="w-full max-w-xs mx-auto rounded-lg shadow mb-4"
         />
         <p className="text-pink-700 text-lg mb-4 whitespace-pre-wrap">
