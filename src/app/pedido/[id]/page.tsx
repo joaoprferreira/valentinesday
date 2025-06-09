@@ -10,21 +10,31 @@ interface Pedido {
   imagem: string
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { id: string }
-}): Promise<Metadata> {
+type Props = { params: Promise<{ id: string }> }
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { id } = await params
   return {
-    title: `Homenagem ${params.id}`,
+    title: `Homenagem ${id}`,
   }
 }
 
-export default async function PedidoPage({
-  params,
-}: {
-  params: { id: string }
-}) {
+export async function generateStaticParams() {
+  const dbPath = path.join(process.cwd(), 'src/data/pedidos.json')
+  try {
+    const content = await fs.readFile(dbPath, 'utf-8')
+    const pedidos: Pedido[] = JSON.parse(content)
+
+    return pedidos.map((pedido) => ({
+      id: pedido.id,
+    }))
+  } catch {
+    return []
+  }
+}
+
+export default async function PedidoPage({ params }: Props) {
+  const { id } = await params
   const dbPath = path.join(process.cwd(), 'src/data/pedidos.json')
   let pedidos = []
   try {
@@ -34,7 +44,7 @@ export default async function PedidoPage({
     pedidos = []
   }
 
-  const pedido = pedidos.find((p: Pedido) => p.id === params.id)
+  const pedido = pedidos.find((p: Pedido) => p.id === id)
 
   if (!pedido) {
     return (
