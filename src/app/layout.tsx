@@ -11,22 +11,22 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 })
 
-export async function generateMetadata({ params }: { params: { id: string } }) {
-  return {
-    title: `Homenagem para ${params.id || ''} 💖`,
-  }
+export const metadata = {
+  title: 'Homenagem 💖',
+  description: 'Uma homenagem especial feita com amor!',
+  icons: {
+    icon: '/favicon.ico',
+  },
 }
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode
-}>) {
+}) {
   return (
     <html lang="pt-br">
-      <head>
-        <link rel="icon" href="/favicon.ico" type="image/x-icon" />
-      </head>
+      <head />
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
