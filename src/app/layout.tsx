@@ -1,6 +1,10 @@
 import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
+import { ReactNode } from 'react'
 
+interface LayoutProps {
+  children: ReactNode
+}
 const geistSans = Geist({
   variable: '--font-geist-sans',
   subsets: ['latin'],
@@ -19,11 +23,7 @@ export const metadata = {
   },
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default async function RootLayout({ children }: LayoutProps) {
   return (
     <html lang="pt-br">
       <head />
