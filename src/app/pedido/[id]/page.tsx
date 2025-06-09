@@ -2,6 +2,9 @@ import { Metadata } from 'next'
 import fs from 'fs/promises'
 import Image from 'next/image'
 import path from 'path'
+import { Hearts } from '../../components/Hearts'
+import { MusicButton } from '../../components/ButtonMusic'
+import { CoupleHeader } from '../../components/coupleHeader'
 
 interface Pedido {
   id: string
@@ -56,6 +59,7 @@ export default async function PedidoPage({ params }: Props) {
 
   return (
     <main className="min-h-screen bg-pink-100 flex items-center justify-center px-4">
+      <Hearts />
       <div className="bg-white shadow-xl p-8 rounded-xl max-w-lg text-center animate-fade-in">
         <h1 className="text-2xl font-bold text-pink-600 mb-4">
           💖 Homenagem para {pedido.nome} 💖
@@ -67,6 +71,7 @@ export default async function PedidoPage({ params }: Props) {
           height={300}
           className="w-full max-w-xs mx-auto rounded-lg shadow mb-4"
         />
+        <CoupleHeader coupleName="Jack & Rose" since="2023-01-01T15:00:00" />
         <p className="text-pink-700 text-lg mb-4 whitespace-pre-wrap">
           {pedido.mensagem}
         </p>
@@ -74,6 +79,7 @@ export default async function PedidoPage({ params }: Props) {
           <source src="/audio/musica_romantica.mp3" type="audio/mpeg" />
           Seu navegador não suporta áudio.
         </audio>
+        <MusicButton />
         <p className="text-sm text-gray-500 mt-4">Feito com amor ❤️</p>
       </div>
     </main>

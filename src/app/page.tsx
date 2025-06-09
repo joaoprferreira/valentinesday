@@ -1,6 +1,7 @@
 'use client'
 import Image from 'next/image'
 import { useState } from 'react'
+import { Hearts } from './components/Hearts'
 
 export default function Home() {
   const [qrPageUrl, setQrPageUrl] = useState('') // Mudei para qrPageUrl ao invés de qrCodeUrl
@@ -41,6 +42,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-pink-50 flex flex-col items-center justify-center px-4">
+      <Hearts />
       <div className="bg-white shadow-lg p-8 rounded-xl max-w-md w-full">
         <h1 className="text-2xl font-semibold text-pink-600 mb-6 text-center">
           💌 Criar Homenagem
