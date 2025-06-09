@@ -10,15 +10,20 @@ interface Pedido {
   imagem: string
 }
 
-export default async function QRPage({ params }: { params: { id: string } }) {
+type Props = {
+  params: Promise<{ id: string }>
+}
+
+export default async function QRPage({ params }: Props) {
   const dbPath = path.join(process.cwd(), 'src/data/pedidos.json')
   const pedidos = JSON.parse(fs.readFileSync(dbPath, 'utf-8'))
+  const { id } = await params
 
-  const pedido = pedidos.find((p: Pedido) => p.id === params.id)
+  const pedido = pedidos.find((p: Pedido) => p.id === id)
 
   if (!pedido) return <p>QR Code não encontrado</p>
 
-  const url = `${process.env.NEXT_PUBLIC_SITE_URL}/pedido/${params.id}`
+  const url = `${process.env.NEXT_PUBLIC_SITE_URL}/pedido/${id}`
   const qrCode = await gerarQRCode(url)
 
   return (
